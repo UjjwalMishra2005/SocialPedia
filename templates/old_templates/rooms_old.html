@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+    .comment-wrapper{
+        border-right:1px solid black;
+    }
+</style>
+<script>
+    function checkMessage(event){
+        let message = document.querySelector('.message-send')
+        if (message == ''){
+            alert('Message cannot be empty!')
+            event.preventDefault()
+
+            
+        }
+    }
+    
+</script>
+
+    <h1>{{room.name}}</h1>
+    <h1>Hosted by : <a href="/Profile/{{room.host.id}}">@{{room.host.username}}</a></h1>
+    <h1>{{room.description}}</h1>
+
+    <hr>
+    {% if request.user.is_authenticated %}
+
+<div class="container">
+    <div class="comment-wrapper">
+        <h2>
+            Conversation
+        </h2>
+        <div class="comment-div" >
+            {% for message in room_messages %}
+
+            <b>@{{message.user}} &#183; </b> <small>{{message.created|timesince}} ago </small> <b> &#183; </b>
+
+            {{message}} 
+            {% if request.user == message.user %}
+            <button  onclick="window.location.href='/edit_message/{{room.id}}/{{message.id}}/'" >Edit</button>
+            <button onclick="window.location.href='/delete_message/{{room.id}}/{{message.id}}'">Delete</button>
+            {% endif %}
+            <br>
+            {% endfor %}
+        </div>
+        <form action="/rooms/{{room.id}}/" method="POST">
+            {% csrf_token %}
+            <br><br><br>
+            <input class="message-send" type="text" name="body" placeholder="Write something here..." id="">
+            <input type="submit" value="send">
+    
+        </form>
+
+    </div>
+    <div>
+        <h2>
+            Participants
+        </h2>
+    <div>
+        {% for participant in participants %}
+        <b> <a href="/Profile/{{participant.id}}"> @{{participant.username}}</a></b>
+        <br>
+        {% endfor %}
+    </div>
+    </div>
+
+</div>
+{% else %}
+Login to participate in conversation
+<button class="login-button" onclick="window.location.href='/login'">
+    Login
+</button>
+{% endif %}
+
+
+
+{% endblock %}

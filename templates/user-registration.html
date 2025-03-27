@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .form-container{
+        margin-left:40px;
+    }
+</style>
+
+<div class="form-container">
+    <form method="POST" action="/register">
+        {% csrf_token %}
+        <h2>User Registration</h2>
+        <label for="username">Enter a username :</label>
+        <input type="text" name="username" id="" value="John Doe"><br>
+        <label for="email">Enter your Email :</label>
+        <input type="email" name="email" value="ujjwalmishra@gmail.com" id=""><br>
+        <label for="password">Create a password : </label>
+        <input type="password" name="password1" value="password1" id=""><br>
+        <label for="password_confirm">Confirm your password :</label>
+        <input type="password" name="password2" value="password2" id=""><br>
+        <input type="submit" value="Register">
+    </form>
+</div>
+
+{% endblock %}

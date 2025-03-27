@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<style>
+    .activity-messages{
+        overflow: auto;
+        height:400px;
+    }
+</style>
+<br>
+
+<div class="main-container">
+
+    <!-- Topics column -->
+    <div class="topics-column">
+        {% include 'topics-component.html' %}
+    </div>
+    <!-- Topics column ends -->
+
+    <!-- Rooms column -->
+    <div class="rooms-column">
+        <h1 style="color:black">New Rooms</h1>
+        <p style="color:black;font-size:18px">{{rooms_count}} rooms available</p>
+        <a href="/createroom">Create a room</a><br><br>
+
+        {% if rooms %}
+        <ul>
+            {% for room in rooms %}
+            <li>
+                <hr>
+                <a href="/Profile/{{room.host.id}}">@{{room.host}}</a><br>
+                <a href="/rooms/{{room.id}}" >  {{room.name}}</a><br>
+                {% if request.user == room.host or request.user.is_superuser %}<br>
+                <a href="/updateroom/{{room.id}}">Update room</a>
+                <a href="/deleteroom/{{room.id}}">Delete room</a><br>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No rooms found!</p>
+        {% endif %}
+        
+    </div>
+    <!-- Rooms column ends -->
+
+    <!-- Activity block -->
+    <div class="activity-block">
+        {% include 'activity-component.html' with room_messages=room_messages %}
+    </div>
+    <!-- Activity block ends -->
+</div>
+
+
+
+{% endblock %}

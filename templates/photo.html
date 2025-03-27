@@ -1,0 +1,8 @@
+{% block content %}
+
+{% if photo %}
+<img src="{{ photo.image.url }}" alt="">
+{% else %}
+<h1>No photo to show</h1>
+{%  endif %}
+{% endblock %}

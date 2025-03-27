@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if page == "login" %}
+<form action="/login" method="POST">
+    {% csrf_token %}
+    <label for="username">Username :</label>
+    <input type="text" name="name" id=""><br>
+    <label for="password">Password : </label>
+    <input type="password" name="password" id=""><br>
+    <button type="submit">Login</button>
+</form>
+<p>Haven't an account on Socialpedia</p>
+<a href="/Userregister">Sign Up</a>
+
+{% else %}
+<form method="POST" action="Userregister">
+    {% csrf_token %}
+    {{form.as_p}}
+    
+    <button type="submit">SignUp</button>
+</form>
+{% endif %}
+
+{%  endblock %}

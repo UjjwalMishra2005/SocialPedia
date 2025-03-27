@@ -1,0 +1,11 @@
+body{
+    background-color: aquamarine;
+    padding-bottom: 500px;
+    margin-bottom: 500px;
+    
+
+}
+.login-link{
+    color: rgb(113 198 221);
+    font-size:15px;
+}
