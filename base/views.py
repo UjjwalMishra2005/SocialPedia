@@ -24,7 +24,7 @@ def home(request):
     room_messages = Message.objects.all()
 
 
-    return render(request,'main.html',{'name':'Ujjwal Mishra','course':'BCA','rooms':rooms,'topics':topics,'rooms_count':rooms_count,'room_messages':room_messages })
+    return render(request,'main.html',{'rooms':rooms,'topics':topics,'rooms_count':rooms_count,'room_messages':room_messages })
 
 def rooms(request,pk):
     room =Room.objects.get(id=pk)     

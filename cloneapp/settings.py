@@ -42,12 +42,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage'
 ]
-# CLOUDINARY_STORAGE = {
 
-#     'CLOUD_NAME': 'dehyazipc',
-#     'API_KEY': '766518979286134',
-#     'API_SECRET': 'UzBX4Az7z7TtMiPaf44hsQZaJ3k',
-# }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'  # still required by Django
 from base import creds
