@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <style>
+
+      .send-button {
+        display: flex;
+        align-items: center;
+        background-color: #55c3d1;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 25px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        outline: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        
+        left:460px;
+      }
+      
+      .send-button:hover {
+        background-color: #48aeb8;
+        transform: translateY(-2px);
+      }
+      
+      .send-button:active {
+        transform: translateY(0);
+      }
+      
+      .send-button .icon {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+    </style>
 
     <main class="profile-page layout layout--2">
       <div class="container">
@@ -178,41 +213,7 @@
           </div>
         </div>
         <!-- Room End -->
-        <style>
-
-          .send-button {
-            display: flex;
-            align-items: center;
-            background-color: #55c3d1;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 10px 25px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            outline: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            
-            left:460px;
-          }
-          
-          .send-button:hover {
-            background-color: #48aeb8;
-            transform: translateY(-2px);
-          }
-          
-          .send-button:active {
-            transform: translateY(0);
-          }
-          
-          .send-button .icon {
-            font-size: 20px;
-            margin-right: 10px;
-          }
-        </style>
+        
 
         <!-- Participant list Start -->
         <div class="participants">
@@ -376,6 +377,14 @@
         <!--  End -->
       </div>
     </main>
+    <script>
+      let url = `ws://${window.location.host}/ws/socket-server/`
+      const baseSocket = new WebSocket(url)
+      baseSocket.onmessage = function(e){
+        let data = JSON.parse(e.data)
+        console.log('Data:',data)
+      }
+    </script>
     <script src="{% static 'js/script.js' %}"></script>
 
   {% endblock %}

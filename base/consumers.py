@@ -5,7 +5,7 @@ class BaseConsumer(AsyncWebsocketConsumer):
     async def connect(self):
 
         await self.channel_layer.group_add(
-            "New message",
+            "New_message",
             self.channel_name
         )
         await self.accept()

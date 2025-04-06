@@ -44,6 +44,11 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage'
 ]
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  # Use Redis in production
+    }
+}
 ASGI_APPLICATION = 'cloneapp.asgi.application'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
