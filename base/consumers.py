@@ -14,3 +14,5 @@ class BaseConsumer(AsyncWebsocketConsumer):
             'message':'Connected'
             
         }))
+    async def receive(self,text_data):
+        pass
