@@ -56,6 +56,7 @@ class BaseConsumer(AsyncWebsocketConsumer):
             "room":room,
             "user":user,
         })
+        room.participants.add(user)
         if form.is_valid():
             saved_form = form.save()
             print('MessageForm is saved successfully')

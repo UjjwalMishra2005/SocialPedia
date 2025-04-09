@@ -32,15 +32,15 @@ def rooms(request,pk):
         room =Room.objects.get(id=pk)     
         participants = room.participants.all()
         room_messages = room.message_set.all()     
-        if request.method =='POST':
-            message_body = request.POST.get('body') 
-            Message.objects.create(
-                user = request.user,
-                room = room,
-                body = message_body
-            )
-            room.participants.add(request.user)
-            return redirect(f'/rooms/{room.id} ')
+        #if request.method =='POST':
+            # message_body = request.POST.get('body') 
+            # Message.objects.create(
+            #     user = request.user,
+            #     room = room,
+            #     body = message_body
+            # )
+            # room.participants.add(request.user)
+            # return redirect(f'/rooms/{room.id} ')
             
         return render(request,'rooms.html',{'room':room,'pk':pk,'room_messages':room_messages,'participants':participants})
     return redirect('/login')
