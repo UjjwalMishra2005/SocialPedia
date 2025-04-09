@@ -32,6 +32,7 @@ def rooms(request,pk):
         room =Room.objects.get(id=pk)     
         participants = room.participants.all()
         room_messages = room.message_set.all()     
+        # No need for this now
         #if request.method =='POST':
             # message_body = request.POST.get('body') 
             # Message.objects.create(
