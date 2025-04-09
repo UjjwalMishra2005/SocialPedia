@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'base.apps.BaseConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +44,12 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage'
 ]
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  # Use Redis in production
+    }
+}
+ASGI_APPLICATION = 'cloneapp.asgi.application'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'  # still required by Django
