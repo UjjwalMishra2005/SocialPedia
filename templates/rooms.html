@@ -254,6 +254,7 @@
             // Create main thread container
             const thread = document.createElement("div");
             thread.classList.add("thread");
+            thread.setAttribute('id',`th${data.message_id}`)
           
             // Create thread__top
             const threadTop = document.createElement("div");
@@ -295,7 +296,11 @@
           
             const deleteLink = document.createElement("a");
             deleteLink.setAttribute("href", '#'); // Replace with actual delete URL
-          
+            
+            deleteLink.addEventListener('click',(e)=>{
+              deleteMessage(data.message_id)
+
+            })
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svg.setAttribute("width", "32");
             svg.setAttribute("height", "32");

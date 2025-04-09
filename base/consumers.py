@@ -56,10 +56,12 @@ class BaseConsumer(AsyncWebsocketConsumer):
         message = event.get('message')
         id = event.get('id')
         type = event.get('type')
+        message_id = event.get('message_id')
         await self.send(text_data=json.dumps({
             "message":message,
             "id":id,
-            "type":type
+            "type":type,
+            "message_id":message_id
         }))
 
     @database_sync_to_async
@@ -74,7 +76,7 @@ class BaseConsumer(AsyncWebsocketConsumer):
         room.participants.add(user)
         if form.is_valid():
             saved_form = form.save()
-            print('MessageForm is saved successfully')
+            print('MessageForm is saved successfully with  id = ',saved_form.id)
             return saved_form.id
         else:
             print(f"errors in messageform : {form.errors}")
