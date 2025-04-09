@@ -18,10 +18,11 @@ def send_message(sender,instance,created,**kwargs):
         async_to_sync(channel_layer.group_send)(
             "New_message",
         {   "type":"message",
-            "data":{
-            "id":instance.id,
-            "name":instance.body
-        }}
+            "id":instance.user.id,
+            "message_id":instance.id,
+            "room_id":instance.room.id,
+            "message":instance.body,
+        }
         )
         print('\nid :', instance.id,'\nmessage_body : ',instance.body,'\n')
         print("Message = ",instance.body,'\n','Message id = ',instance.id ,' ------->signals')

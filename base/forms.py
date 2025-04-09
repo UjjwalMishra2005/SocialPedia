@@ -9,12 +9,12 @@ class RoomForm(ModelForm):
 class MessageForm(ModelForm):
     class Meta:
         model = Message
-        fields = ['body']
+        fields = ['body','room','user']
 
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username','email']
+        fields = ['username','email','password']
 class PhotoForm(ModelForm):
     class Meta:
         model = photo

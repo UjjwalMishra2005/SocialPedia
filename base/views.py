@@ -26,23 +26,24 @@ def home(request):
 
     return render(request,'main.html',{'rooms':rooms,'topics':topics,'rooms_count':rooms_count,'room_messages':room_messages })
 
+@login_required(login_url='login')
 def rooms(request,pk):
-    room =Room.objects.get(id=pk)     
-    participants = room.participants.all()
-    room_messages = room.message_set.all()     
-    if request.method =='POST':
-        message_body = request.POST.get('body') 
-        Message.objects.create(
-            user = request.user,
-            room = room,
-            body = message_body
-        )
-        room.participants.add(request.user)
-        return redirect(f'/rooms/{room.id} ')
-        
-    return render(request,'rooms.html',{'room':room,'pk':pk,'room_messages':room_messages,'participants':participants})
-
-
+    if request.user.is_authenticated: 
+        room =Room.objects.get(id=pk)     
+        participants = room.participants.all()
+        room_messages = room.message_set.all()     
+        if request.method =='POST':
+            message_body = request.POST.get('body') 
+            Message.objects.create(
+                user = request.user,
+                room = room,
+                body = message_body
+            )
+            room.participants.add(request.user)
+            return redirect(f'/rooms/{room.id} ')
+            
+        return render(request,'rooms.html',{'room':room,'pk':pk,'room_messages':room_messages,'participants':participants})
+    return redirect('/login')
 
 def product(request):
     try:
@@ -153,7 +154,7 @@ def Userlogin(request):
 
         else:
             messages.error(request,'User does not exists!')
-            print('Something went wrong!!')
+            print('Something went wrong!!, user=',user)
         return redirect('/login')
     return render(request,'login.html',{'page':page})
 
@@ -180,11 +181,13 @@ def Userregister(request):
 
         }
         )
+        print(request.POST.get('password'))
         
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.username = user.username.strip()
+            user.set_password(request.POST.get('password'))
             user.save()
             login(request,user)
             print('user form is valid')
@@ -214,7 +217,7 @@ def delete_message(request,pk1,pk2):
     if request.user == message.user or request.user.is_superuser:
         message.delete()
         return redirect(request.META.get('HTTP_REFERER','default-view'))
-    return HttpResponse('Nahi hoga delete chal bhaag yahan see!!')
+    return redirect(f'/rooms/{pk1}')
 # def edit_message(request,pk1,pk2):
 #     return HttpResponse('Edit your message here')
 
