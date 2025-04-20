@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import cloudinary
+import cloudinary,os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-8fxl-z=4q1ns9h5*$5n6k(vvaf&nj9k18sc7$!x!132#jzt=@a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -59,9 +59,9 @@ MEDIA_URL = '/media/'  # still required by Django
 from base import creds
 
 cloudinary.config (
-    cloud_name = creds.cloud_name,
-    api_key = creds.api_key,
-    api_secret=creds.api_secret
+    cloud_name = os.environ.get('cloud_name'),
+    api_key = os.environ.get('api_key'),
+    api_secret=os.environ.get('api_secret')
 
 )
 
@@ -77,7 +77,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cloneapp.urls'
-import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'cloneapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-import dj_database_url,os
+import dj_database_url
 
 # DATABASES = {
 #     'default': {
