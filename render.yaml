@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: base
+    env: python 
+    buildCommand : pip install -r requirements.txt
+    startCommand: daphne cloneapp.asgi : application
+    envVars :
+  - key: DATABASE_URL
+    sync: false
+  - key: SECREt_KEY
+    sync: false
+  - key: DEBUG
+    value: False
