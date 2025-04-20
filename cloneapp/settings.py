@@ -56,7 +56,7 @@ ASGI_APPLICATION = 'cloneapp.asgi.application'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'  # still required by Django
-from base import creds
+
 
 cloudinary.config (
     cloud_name = os.environ.get('cloud_name'),
