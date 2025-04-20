@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 """
 Django settings for cloneapp project.
 
@@ -63,6 +66,7 @@ cloudinary.config (
 )
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -99,19 +103,22 @@ WSGI_APPLICATION = 'cloneapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+import dj_database_url,os
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'cloneapp_database',
+#         'USER':'root',
+#         'PASSWORD':'12345',
+#         'HOST':'localhost',
+#         'PORT':'3306',
+
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cloneapp_database',
-        'USER':'root',
-        'PASSWORD':'12345',
-        'HOST':'localhost',
-        'PORT':'3306',
-
-    }
+    'default':dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -150,9 +157,9 @@ ALLOWED_HOSTS=['*']
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static')
-]
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
