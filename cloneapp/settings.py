@@ -1,5 +1,11 @@
 from dotenv import load_dotenv
 load_dotenv()
+from environ import Env
+env = Env()
+Env.read_env()
+
+ENVIRONMENT = env('ENVIRONMENT',default = "development")
+ENVIROMENT = 'production'
 
 """
 Django settings for cloneapp project.
@@ -24,10 +30,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8fxl-z=4q1ns9h5*$5n6k(vvaf&nj9k18sc7$!x!132#jzt=@a'
+SECRET_KEY = env('SECRET_KEY')
+
+if ENVIRONMENT == 'development':
+    DEBUG = True
+else :
+    DEBUG = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -103,22 +114,24 @@ WSGI_APPLICATION = 'cloneapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-import dj_database_url
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'cloneapp_database',
-#         'USER':'root',
-#         'PASSWORD':'12345',
-#         'HOST':'localhost',
-#         'PORT':'3306',
+if ENVIRONMENT == 'development':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'cloneapp_database',
+            'USER':'root',
+            'PASSWORD':'12345',
+            'HOST':'localhost',
+            'PORT':'3306',
 
-#     }
-# }
-DATABASES = {
-    'default':dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
+        }
+    }
+else :
+    import dj_database_url
+    DATABASES = {
+        'default':dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -150,15 +163,16 @@ USE_I18N = True
 
 USE_TZ = True
 
-ALLOWED_HOSTS=['*']
+
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR/'static']
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Default primary key field type
