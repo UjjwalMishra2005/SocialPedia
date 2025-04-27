@@ -40,7 +40,8 @@ else :
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','https:socialpedia-1.onrender.com','localhost']
+CSRF_TRUSTED_ORIGINS = ['https://socialpedia-1.onrender.com']
 
 
 # Application definition
