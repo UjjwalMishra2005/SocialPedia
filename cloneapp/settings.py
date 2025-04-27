@@ -5,7 +5,7 @@ env = Env()
 Env.read_env()
 
 ENVIRONMENT = env('ENVIRONMENT',default = "development")
-ENVIROMENT = 'production'
+ENVIRONMENT = 'production'
 
 """
 Django settings for cloneapp project.
@@ -20,7 +20,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import cloudinary,os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,7 +68,7 @@ ASGI_APPLICATION = 'cloneapp.asgi.application'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'  # still required by Django
 
-
+import cloudinary,os
 cloudinary.config (
     cloud_name = os.environ.get('cloud_name'),
     api_key = os.environ.get('api_key'),

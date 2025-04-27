@@ -1,2 +1,4 @@
 base/creds.py
 .env
+migrations/
+__pycache__/
