@@ -41,7 +41,7 @@ else :
 
 
 ALLOWED_HOSTS = ['*','https:socialpedia-1.onrender.com','localhost']
-CSRF_TRUSTED_ORIGINS = ['https://socialpedia-1.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://socialpedia-e12b.onrender.com']
 
 
 # Application definition
