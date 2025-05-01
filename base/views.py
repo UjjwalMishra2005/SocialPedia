@@ -234,7 +234,8 @@ def userProfile(request,pk):
 
 @login_required(login_url='login')
 def topics(request):
-    return render(request,'topics.html')
+    topics = Topic.objects.all()
+    return render(request,'topics.html',{"topics":topics})
 
 @login_required(login_url='login')
 def activity(request):

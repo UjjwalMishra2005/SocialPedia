@@ -440,14 +440,15 @@ form.header__search{
   width: 90%;
   max-width: 48rem;
   min-height: 40rem;
+  max-height: 200rem;
   position: absolute;
-  top: 50%;
+  top: 77rem;
   left: 50%;
   transform: translate(-50%, -46%);
   background-color: var(--color-dark);
   border-radius: 1rem;
   box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow-y: auto;
   
 }
 
