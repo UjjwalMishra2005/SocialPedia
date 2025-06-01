@@ -28,36 +28,33 @@ def home(request):
 
 @login_required(login_url='login')
 def rooms(request,pk):
+
     if request.user.is_authenticated: 
         room =Room.objects.get(id=pk)     
         participants = room.participants.all()
         room_messages = room.message_set.all()     
         # No need for this now
-        #if request.method =='POST':
-            # message_body = request.POST.get('body') 
-            # Message.objects.create(
-            #     user = request.user,
-            #     room = room,
-            #     body = message_body
-            # )
-            # room.participants.add(request.user)
-            # return redirect(f'/rooms/{room.id} ')
+        if request.method=="POST":
+            print('this code is running')
+            message_body = request.POST.get('body') 
+            message = Message.objects.create(
+                user = request.user,
+                room = room,
+                body = message_body
+            )
+            room.participants.add(request.user)
+            context = {
+                'user':request.user,
+                'message':message,
+                
+            }
+            print(f'message body : {message_body}')
+            return render(request,'chat_messages_partial.html',context)
             
         return render(request,'rooms.html',{'room':room,'pk':pk,'room_messages':room_messages,'participants':participants})
     return redirect('/login')
 
-def product(request):
-    try:
-        num1 = int(request.POST['num1'])
-        num2 = int(request.POST['num2'])
 
-    except ValueError :
-        message = 'Some error occured!'
-        result = 0
-    else :
-        message = ''
-        result = num1 + num2
-    return render(request,'result.html',{'result':result,'message':message})
 @login_required(login_url='login')
 def createroom(request):
     if not request.user.is_authenticated:
@@ -127,17 +124,7 @@ def deleteroom(request,pk):
         return redirect('/')
     return render(request,'delete.html',{'obj':room,'pk':pk})
 
-# def register(request):
-#     if request.method == 'POST':
-#         name= request.POST.get('username')
-#         password1 = request.POST.get('password1')
-#         try:
-#             user = User.objects.get(username=name)
-#         except:
-#             messages.error(request,'User does not exist!')
-#         print(f'name : {name} \n password : {password1} ')
-#         return redirect('/')
-#     return render(request,'user-registration.html')
+
 
 def Userlogin(request):
     page= 'login'

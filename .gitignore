@@ -1,4 +1,5 @@
 base/creds.py
+base/signals.py
 .env
 migrations/
 __pycache__/

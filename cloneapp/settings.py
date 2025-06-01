@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-
+# ENVIRONMENT = 'production'
 if ENVIRONMENT == 'development':
     DEBUG = True
 else :
@@ -40,7 +40,7 @@ else :
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['socialpedia-e12b.onrender.com','localhost']
+ALLOWED_HOSTS = ['socialpedia-e12b.onrender.com','localhost','127.0.0.1',]
 CSRF_TRUSTED_ORIGINS = ['https://socialpedia-e12b.onrender.com']
 
 
@@ -79,6 +79,7 @@ cloudinary.config (
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -110,7 +111,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'cloneapp.wsgi.application'
+#WSGI_APPLICATION = 'cloneapp.wsgi.application'
 
 
 # Database
