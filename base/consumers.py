@@ -1,14 +1,15 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.shortcuts import get_object_or_404
-from base.models import *
 from channels.db import database_sync_to_async
 from django.template.loader import render_to_string
 from asgiref.sync import sync_to_async
 
 class BaseConsumer(AsyncWebsocketConsumer):
+    
     @database_sync_to_async
     def get_object(self,room_name):
+        from base.models import Room
         return get_object_or_404(Room,name=room_name)
     
     async def connect(self):
@@ -19,8 +20,7 @@ class BaseConsumer(AsyncWebsocketConsumer):
         except Exception as e:
             print('error occured: ',e)
             return
-        else:
-            print(self.user,self.chatroom_name,sep='\n')
+
         self.safe_group_name =self.chatroom_name.replace(" ", "_") 
         await self.channel_layer.group_add(
             self.safe_group_name,self.channel_name
@@ -38,6 +38,7 @@ class BaseConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def create_message(self,body):
+        from base.models import Message
         message_saved = Message.objects.create(
             user = self.user,
             room = self.room_object,
@@ -65,6 +66,7 @@ class BaseConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_message_by_id(self, id):
+        from base.models import Message
         return Message.objects.get(id=id)
 
     async def message_handler(self, event):
@@ -74,7 +76,7 @@ class BaseConsumer(AsyncWebsocketConsumer):
         context = {
             "message": message,
             "user": self.user,
-            "chat_group": self.room_object  # or self.room_object if that's what you use
+            "chat_group": self.room_object  
         }
 
         html = await sync_to_async(render_to_string)(
