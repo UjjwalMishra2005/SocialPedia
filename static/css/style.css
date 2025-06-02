@@ -1123,6 +1123,13 @@ form.header__search{
   left: 0;
   right: 0;
   background: transparent;
+
+}
+.room__message > form {
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+
 }
 
 .room__message > form > input {

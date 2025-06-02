@@ -5,7 +5,7 @@ env = Env()
 Env.read_env()
 
 ENVIRONMENT = env('ENVIRONMENT',default = "development")
-ENVIRONMENT = 'production'
+ENVIRONMENT = 'development'
 
 """
 Django settings for cloneapp project.
@@ -40,8 +40,8 @@ else :
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['socialpedia-e12b.onrender.com','localhost','127.0.0.1',]
-CSRF_TRUSTED_ORIGINS = ['https://socialpedia-e12b.onrender.com']
+ALLOWED_HOSTS = ['socialpedia-e12b.onrender.com','localhost','127.0.0.1','aa64-2409-4089-ab3d-1585-60e2-f9fe-1df0-8f6d.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://socialpedia-e12b.onrender.com','https://aa64-2409-4089-ab3d-1585-60e2-f9fe-1df0-8f6d.ngrok-free.app']
 
 
 # Application definition

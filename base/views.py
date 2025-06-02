@@ -32,9 +32,9 @@ def rooms(request,pk):
     if request.user.is_authenticated: 
         room =Room.objects.get(id=pk)     
         participants = room.participants.all()
-        room_messages = room.message_set.all()     
-        # No need for this now
-        if request.method=="POST":
+        room_messages = room.message_set.all()
+
+        '''if request.method=="POST":
             print('this code is running')
             message_body = request.POST.get('body') 
             message = Message.objects.create(
@@ -49,7 +49,7 @@ def rooms(request,pk):
                 
             }
             print(f'message body : {message_body}')
-            return render(request,'chat_messages_partial.html',context)
+            return render(request,'chat_messages_partial.html',context)'''
             
         return render(request,'rooms.html',{'room':room,'pk':pk,'room_messages':room_messages,'participants':participants})
     return redirect('/login')

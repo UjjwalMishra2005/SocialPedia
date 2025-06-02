@@ -6,24 +6,24 @@
       .send-button {
         display: flex;
         align-items: center;
-        background-color: #55c3d1;
+        background-color: #535291;
         color: white;
         border: none;
-        border-radius: 50px;
-        padding: 10px 25px;
+        border-radius: 30px;
+        height:40px;
+        padding :4px 8px 4px 16px;/*top right bottom left*/
         font-size: 15px;
         font-weight: bold;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease;
         outline: none;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: relative;
-        
-        left:460px;
+        margin-bottom:5px;
+
       }
       
       .send-button:hover {
-        background-color: #48aeb8;
+        background-color: #7373b4;
         transform: translateY(-2px);
       }
       
@@ -86,8 +86,8 @@
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                   <title>Remove</title>
                   <path
-                    d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                  ></path>
+                    d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z">
+                  </path>
                 </svg>
               </a>
               {% endif %}
@@ -154,10 +154,10 @@
                   _ ="on htmx:wsAfterSend reset() me">
                   {% csrf_token %}
                   <input type="hidden" name="type" value="save">
-                  <input  class="message-input-box" name="body" placeholder="Type something..." />
-                  <!-- <button class="send-button">
-                    <span class="icon">➤</span> Send
-                  </button> -->
+                  <input required  class="message-input-box" name="body" placeholder="Type something..." />
+                  <button class="send-button">
+                    <span class="icon">➤</span>
+                  </button>
                 </form>
               </div>
               
